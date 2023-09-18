@@ -1,0 +1,92 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Partner {
+  id                String       @id @default(uuid())
+  partnerName       String
+  sector            String
+  contactEmail      String
+  contactPhone      String
+  rateForProject    Int?
+  password          String?
+  branch            String
+  representativeJob String
+  responsibleName   String?
+  modules           Module[]
+  initiatives       Initiative[]
+  isActive          Boolean      @default(true)
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+}
+
+model Course {
+  id          String       @id @default(uuid())
+  courseType  String
+  director    String
+  modules     Module[]
+  initiatives Initiative[]
+  classes     Class[]
+  isActive    Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Module {
+  id          String       @id @default(uuid())
+  courseCode  String
+  moduleName  String
+  status      String
+  beginData   DateTime
+  partner     Partner?     @relation(fields: [partnerId], references: [id])
+  partnerId   String?
+  initiatives Initiative[]
+  courseId    String?
+  course      Course?      @relation(fields: [courseId], references: [id])
+  isActive    Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Class {
+  id           String   @id @default(uuid())
+  customerName String
+  startYear    DateTime
+  courseId     String?
+  course       Course?  @relation(fields: [courseId], references: [id])
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Initiative {
+  id             String   @id @default(uuid())
+  partnerId      String
+  partner        Partner  @relation(fields: [partnerId], references: [id])
+  moduleId       String
+  module         Module   @relation(fields: [moduleId], references: [id])
+  courseId       String
+  course         Course   @relation(fields: [courseId], references: [id])
+  initiativeName String
+  scope          String
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Analyst {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  password  String   @unique
+  role      String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

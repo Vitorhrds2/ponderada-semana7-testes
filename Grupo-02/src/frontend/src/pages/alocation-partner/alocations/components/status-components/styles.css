@@ -1,0 +1,66 @@
+/* Adicione esses estilos ao seu arquivo CSS */
+.timeline-step {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  width: 100px;
+  padding: 20px 0;
+}
+
+.timeline-step:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background-color: #ccc;
+  border-radius: 50%;
+}
+
+.timeline-step.marcado:before {
+  background-color: #4caf50;
+}
+
+.timeline-step.processo:before {
+  background-color: #ff9800;
+}
+
+.timeline-line {
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  background-color: #ccc;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -1;
+}
+
+.timeline-connector {
+  position: absolute;
+  width: 2px;
+  height: 50px;
+  background-color: #ccc;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+.timeline-connector.marcado {
+  background-color: #4caf50;
+}
+
+.timeline-connector.processo {
+  background-color: #ff9800;
+}
+
+.timeline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding: 40px 0;
+}

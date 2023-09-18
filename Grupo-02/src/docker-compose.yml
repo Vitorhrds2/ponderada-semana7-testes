@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - nexus-api
+  nexus-api:
+    build:
+      context: ./nexus-api
+    ports:
+      - "443:443"
+    environment:
+      - DATABASE_URL=mysql://admin:yagoaraujo@database-1.c2wzygnnpgfg.us-east-1.rds.amazonaws.com:3306/ponderadaDb?connect_timeout=30&pool_timeout=30&socket_timeout=30
+    volumes:
+      - ./nexus-api:/app
