@@ -1,6 +1,4 @@
-# 
-
-**Nome do Teste:** Verificar informações do primeiro curso recebido no endpoint /courses
+## Teste: Verificar informações do primeiro curso recebido no endpoint /courses
 
 **Objetivo:** O objetivo desse teste foi garantir que a API retornasse as informações corretas para o primeiro curso na lista de cursos.
 
